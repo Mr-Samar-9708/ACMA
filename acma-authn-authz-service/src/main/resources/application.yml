@@ -25,10 +25,13 @@ spring:
 
 eureka:
   client:
-    service-url: 
-      default-zone: http://${ACMA_REGISTRY_HOST:localhost}:${ACMA_REGISTRY_PORT:8761}/eureka/
+    service-url:
+      defaultZone: http://${ACMA_REGISTRY_HOST:localhost}:${ACMA_REGISTRY_PORT:8761}/eureka/
+      fetch-registry: true
+      registry-with-eureka: true
+
   instance:
-    hostname: ${ACMA_AUTHNZ_REGISTRY_HOST:localhost}
+    hostname: ${ACMA_REGISTRY_HOST:localhost}
     #prefer-ip-address: true  
         
 management:
