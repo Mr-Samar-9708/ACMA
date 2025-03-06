@@ -113,7 +113,7 @@ public class UsersResource {
 			bearerToken =  StringUtils.replace(bearerToken, bearerPrefix, "");		
 		}
 		log.info("token is {}",bearerToken);
-		//usersBean = usersService.createUser(usersBean, bearerToken);
+		usersBean = usersService.createUser(usersBean, bearerToken);
 		return new ResponseEntity<UsersBean>(usersBean, HttpStatus.CREATED);
 	}
 	

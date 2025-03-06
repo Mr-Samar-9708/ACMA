@@ -3,7 +3,7 @@ spring:
    name: acma-usermgmt-service
 
 server:
-  port: ${APP_PORT:5051}
+  port: ${APP_PORT:5052}
   
 acma: 
   iam: 
@@ -15,7 +15,7 @@ acma:
 eureka:
   client:
     service-url:
-      defaultZone: http://${ACMA_REGISTRY_HOST:localhost}:${ACMA_REGISTRY_PORT:8761}/eureka/
+      defaultZone: http://${ACMA_REGISTRY_HOST:localhost}:${ACMA_REGISTRY_PORT:8762}/eureka/
       fetch-registry: true
       registry-with-eureka: true
   instance:
