@@ -3,7 +3,7 @@ spring:
    name: acma-usermgmt-service
 
 server:
-  port: ${APP_PORT:5052}
+  port: ${APP_PORT:5051}
   
 acma: 
   iam: 

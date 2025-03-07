@@ -5,6 +5,8 @@ spring:
     redis:
       host: ${ACMA_CACHE_HOST:localhost}
       port: ${ACMA_CACHE_PORT:6379}
+      username: ${ACMA_CACHE_USER_NAME:username}
+      password: ${ACMA_CACHE_PASSWORD:password}
       
   security:
     oauth2:
@@ -12,16 +14,16 @@ spring:
         registration:
           keycloak: 
             provider: keycloak
-            client-id: otto-insurer
-            client-secret: e1gSOlzoXVRs7cyZqTwwXn7B8Vft9s2d
-            authorization-grant-type: authorization_code
+            client-id: ${ACMA_PUB_CLIENT:otto-insurer}
+            client-secret: ${ACMA_CLIENT_SECRET:e1gSOlzoXVRs7cyZqTwwXn7B8Vft9s2d}
+            authorization-grant-type: ${ACMA_PUB_CLIENT_GRANT_TYPE:authorization_code}
             redirect-uri: "{baseUrl}/login/oauth2/code/"
             scope: 
              - openid             
         provider:
           keycloak: 
-            issuer-uri: http://localhost:8081/realms/acma
-            token-uri: http://localhost:8081/realms/acma/protocol/openid-connect/token
+            issuer-uri: http://${IAM_HOST:localhost}:${IAM_PORT:8081}/realms/${IAM_REALM:acma}
+            token-uri: http://${IAM_HOST:localhost}:${IAM_PORT:8081}/realms/${IAM_REALM:acma}/protocol/openid-connect/token
 
 eureka:
   client:

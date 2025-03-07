@@ -146,7 +146,7 @@ public class AcmaUsersOutboundApi {
 	}
 
 	public Users createUser(Users user, String accessToken) {
-
+		log.info("access token in OutBound API is "+accessToken);
 		HttpEntity httpEntity = AcmaOutboundUtils.getHttpEntity(user, accessToken);
 
 		try {
