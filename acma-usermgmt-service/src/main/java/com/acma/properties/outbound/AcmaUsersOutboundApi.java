@@ -146,7 +146,7 @@ public class AcmaUsersOutboundApi {
 	}
 
 	public Users createUser(Users user, String accessToken) {
-
+		log.info("access token in OutBound API is "+accessToken);
 		HttpEntity httpEntity = AcmaOutboundUtils.getHttpEntity(user, accessToken);
 
 		try {
@@ -159,6 +159,10 @@ public class AcmaUsersOutboundApi {
 					log.info("location header value is " + locHeaderVal);
 					String userId = locHeaderVal.replace(acma_users_api_url + "/", "");
 					log.info("User Id From location header is " + userId);
+					if(!StringUtils.hasText(userId)){
+						throw new RuntimeException("User Creation Failed");
+					}
+					user.setId(userId);
 					String groupId = null;
 					if (!StringUtils.hasLength(user.getGroupId())) {
 						log.info("Property Owners Group Id is {}", groupId);
@@ -171,7 +175,6 @@ public class AcmaUsersOutboundApi {
 					boolean isGroupProvisioned = provisionUserUnderAGroup(userId, groupId, accessToken);
 					if (isGroupProvisioned) {
 						user.setGroupId(groupId);
-
 					} else {
 						// delete the user
 					}

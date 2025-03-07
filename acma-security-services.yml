@@ -37,7 +37,7 @@ services:
     command: start-dev
     restart: always
     ports:
-     - 8081:8080
+     - 8080:8080
     environment:
       - KEYCLOAK_ADMIN=admin
       - KEYCLOAK_ADMIN_PASSWORD=Admin123$$
@@ -75,7 +75,42 @@ services:
    networks: 
     - acma-iam-network
 
+  acma-user-mgmt-svc:
+    container_name: acma-user-mgmt
+    image: user-mgmt-svc-img:latest
+    restart: on-failure
+    ports:
+      - 5051:5051
+    environment:
+      - IAM_USERS_API_HOST=acma-iam-service
+      - IAM_USERS_API_PORT=8080
+      - ACMA_REGISTRY_HOST=acma-registry-server
+      - ACMA_REGISTRY_PORT=8761
+    networks:
+      - acma-iam-network
+
+  acma-authnz-svc:
+    container_name: acma-authz-svc
+    image: acma-authz-svc-img:latest
+    restart: on-failure
+    ports:
+      - 5052:5052
+    environment:
+      - IAM_HOST=acma-iam-service
+      - IAM_PORT=8080
+      - ACMA_PUB_CLIENT=otto-insurer
+      - ACMA_PUB_CLIENT_GRANT_TYPE=authorization_code
+      - ACMA_REGISTRY_HOST=acma-registry-server
+      - ACMA_REGISTRY_PORT=8761
+      - ACMA_CACHE_HOST=acma-cache-service
+      - ACMA_CACHE_PORT=6379
+      - ACMA_CACHE_USER_NAME=username
+      - ACMA_CACHE_PASSWORD=password
+    networks:
+      - acma-iam-network
+
 networks:
-    acma-iam-network: 
-      driver: bridge
+    acma-iam-network:
+      external: true
+      name: acma-infra-network
     

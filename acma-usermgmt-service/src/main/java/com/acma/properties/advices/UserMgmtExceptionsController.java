@@ -32,19 +32,6 @@ public class UserMgmtExceptionsController extends ResponseEntityExceptionHandler
 	@ExceptionHandler(UsersException.class)
 	public ResponseEntity<UsersExceptionsDisplayBean> handleBusinessExceptions(UsersException usersException){
 		log.info("Users Exception is "+usersException.getErrorMessage());
-		
-		log.info("GET Class "+usersException.getClass());
-		
-		for(StackTraceElement ste :  usersException.fillInStackTrace().getStackTrace()) {
-			log.info("class name "+ste.getClassName());
-			log.info("Method Name: "+ste.getMethodName());
-			log.info("Line Number "+ste.getLineNumber());
-			
-			
-		}
-		
-		usersException.printStackTrace();
-		
 		UsersExceptionsDisplayBean uedb = UsersExceptionsDisplayBean.builder()
 											.message(usersException.getErrorMessage())
 											.code(usersException.getErrorCode())
